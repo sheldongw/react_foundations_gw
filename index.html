@@ -13,27 +13,37 @@
   </head>
   <body>
     <div id="app"></div>
-    <script type="text/babel" data-type="module" data-presets="react">
+    <script type="text/text/babel" data-type="module" data-presets="react">
       import React from 'react';
       import { createRoot } from 'react-dom/client';
 
-      // Componente 1: Título
-      function Header() {
-        return <h1>Develop. Preview. Ship.</h1>;
+      function Header({ title }) {
+        return <h1>{title ? title : 'Default title'}</h1>;
       }
 
-      // Componente 2: Página principal (que chama o Header)
       function HomePage() {
+        const names = ['Ada Lovelace', 'Grace Hopper', 'Margaret Hamilton'];
+        const [likes, setLikes] = React.useState(0);
+
+        function handleClick() {
+          setLikes(likes + 1);
+        }
+
         return (
           <div>
-            <Header />
+            <Header title="Develop. Preview. Ship." />
+            <ul>
+              {names.map((name) => (
+                <li key={name}>{name}</li>
+              ))}
+            </ul>
+
+            <button onClick={handleClick}>Like ({likes})</button>
           </div>
         );
       }
 
-      // Renderiza a HomePage na tela
-      const domNode = document.getElementById('app');
-      const root = createRoot(domNode);
+      const root = createRoot(document.getElementById('app'));
       root.render(<HomePage />);
     </script>
   </body>
